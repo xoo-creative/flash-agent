@@ -8,19 +8,13 @@ def handler(event, context):
     event_as_string = json.dumps(event)
     data = json.loads(event_as_string)
 
-    logging.info(f"Event looks like: {data}")
+    print(f"Event looks like: {data}")
 
     message = {
-    'message': 'Execution started successfully!'
+    'message': 'Flash agent at your service!'
     }
     return {
         'statusCode': 200,
         'headers': {'Content-Type': 'application/json'},
         'body': json.dumps(message)
     }
-
-
-    return 'Hello from AWS Lambda using Python' + sys.version + '!'
-
-
-# 799492718470.dkr.ecr.us-west-2.amazonaws.com/flash-agent

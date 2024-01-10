@@ -12,4 +12,4 @@ docker tag flash-agent:new 799492718470.dkr.ecr.us-west-2.amazonaws.com/flash-ag
 docker push 799492718470.dkr.ecr.us-west-2.amazonaws.com/flash-agent:latest
 
 # Update the lambda code
-aws lambda update-function-code --function-name FlashAgent --profile flash --image-uri 799492718470.dkr.ecr.us-west-2.amazonaws.com/flash-agent:latest
+aws lambda update-function-code --function-name flash --profile flash --image-uri 799492718470.dkr.ecr.us-west-2.amazonaws.com/flash-agent:latest
