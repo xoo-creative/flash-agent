@@ -1,7 +1,7 @@
 
 from dataclasses import dataclass
 
-from flash.commons.prompt import Prompt
+from flash_agent.commons.prompt import Prompt
 
 
 @dataclass

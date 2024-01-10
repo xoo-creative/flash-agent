@@ -1,5 +1,5 @@
 import pkg_resources
-from flash.commons.prompt import Prompt
+from flash_agent.commons.prompt import Prompt
 
 import logging
 
@@ -20,7 +20,7 @@ def load_text(path: str) -> str:
     
 def load_prompt(prompt: Prompt) -> str:
 
-    prompt_path = pkg_resources.resource_filename(package_or_requirement="flash", 
+    prompt_path = pkg_resources.resource_filename(package_or_requirement="flash_agent", 
                                                   resource_name=f"prompts/{prompt.value}.txt")
 
     return load_text(prompt_path)
