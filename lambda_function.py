@@ -8,14 +8,19 @@ from flash_agent.agent.async_agent import AsyncAgent
 
 async def async_handler(event, context):
 
-    event_as_string = json.dumps(event)
-    data = json.loads(event_as_string)
+    # event_as_string = json.dumps(event)
+    data = json.loads(event)
+    
 
     print(f"Event looks like: {data}")
-    body = json.loads(data['body'])
-    print(f"Body looks like: {body}")
+    print(f"Event is now of type {type(data)}")
 
-    technology = body["technology"]
+    # Need to parse `body` when it's an API request, but this lambda
+    #   is currently being invoked from the lambda client directly on `boto3`.
+    # body = json.loads(data['body'])
+    # print(f"Body looks like: {body}")
+
+    technology = data["technology"]
 
     print(f"Technology we are generating for is {technology}.")
 
