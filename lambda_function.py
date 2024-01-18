@@ -13,7 +13,6 @@ async def async_handler(event, context):
     
 
     print(f"Event looks like: {data}")
-    print(f"Event is now of type {type(data)}")
 
     # Need to parse `body` when it's an API request, but this lambda
     #   is currently being invoked from the lambda client directly on `boto3`.
@@ -21,8 +20,9 @@ async def async_handler(event, context):
     # print(f"Body looks like: {body}")
 
     technology = data["technology"]
+    model = data["model"]
 
-    print(f"Technology we are generating for is {technology}.")
+    print(f"Technology we are generating for is {technology}, using model {model}.")
 
     agent = AsyncAgent(technology)
 
