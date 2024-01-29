@@ -1,4 +1,6 @@
 import sys
+
+from flask import Request
 import langchain
 import json
 import logging
@@ -19,21 +21,42 @@ async def async_handler(event, context):
     # body = json.loads(data['body'])
     # print(f"Body looks like: {body}")
 
+    """
+    There are two types of `request`s, `validate` and `generate`. 
+    They are passed in the "request_type" variable.
+    """
+
+    request_type = data["request_type"]
     technology = data["technology"]
-    model = data["model"]
 
-    print(f"Technology we are generating for is {technology}, using model {model}.")
+    if request_type == Request.GENERATE.value:
+        print("Recieved a GENERATE lambda call, ")
+    
+        model = data["model"]
 
-    agent = AsyncAgent(technology)
+        print(f"Technology we are generating for is {technology}, using model {model}.")
 
-    result = await agent.generate_full_async()
+        agent = AsyncAgent(technology)
 
-    message = {
-    'message': f'Flash agent which knows about {technology} is at your service!',
-    'learning_material': result
-    }
+        result = await agent.generate_full_async()
 
-    return result, message
+        message = {
+        'message': f'Flash agent which knows about {technology} is at your service!',
+        'learning_material': result
+        }
+
+        return result, message
+
+    elif request_type == Request.VALIDATE.value:
+        print(f"Recieved a VALIDATE lambda call, for technology {technology}")
+
+    else:
+        print(f"ERROR: Recieved a non-defined request type: {request_type}")
+        message = {
+            'message': f'Your request of type {request_type} was not defined. Please try again with either "generate" or "validate".'
+        }
+        return "", message
+
 
 
 def handler(event, context):

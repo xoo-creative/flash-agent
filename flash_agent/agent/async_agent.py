@@ -11,6 +11,8 @@ from langchain.prompts.chat import (
     SystemMessagePromptTemplate,
 )
 
+load_dotenv()
+
 import logging
 
 class AsyncAgent:
@@ -114,6 +116,29 @@ class AsyncAgent:
 
         _write_flash(content, f"text-examples/{filename}")
 
+    async def validate_technology(self, technology: str) -> bool:
+
+        requested_prompt = load_prompt(Prompt.VALIDATE)
+        
+        if technology == "":
+            raise RuntimeError("No technology name is provided, but it is required.")
+
+        human_prompt_template = "{technology_name}"
+
+        system_message_prompt = SystemMessagePromptTemplate.from_template(requested_prompt)
+        human_message_prompt = HumanMessagePromptTemplate.from_template(human_prompt_template)
+
+        chat_prompt = ChatPromptTemplate.from_messages(
+            [system_message_prompt, human_message_prompt]
+        )
+
+        chat_response = await self.openai_chat.ainvoke(
+            chat_prompt.format_prompt(
+                technology_name=technology
+            ).to_messages()
+        )
+
+        return chat_response.content
         
     
 

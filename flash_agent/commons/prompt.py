@@ -7,3 +7,4 @@ class Prompt(Enum):
     WITH_AND_WITHOUT = "with_and_without"
     SMALL_RUNNABLE_EXAMPLE = "small_runnable_example"
     REAL_LIFE_EXAMPLES = "real_life_examples"
+    VALIDATE = "validate"
